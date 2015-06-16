@@ -1,16 +1,18 @@
-<h1>Register Cat</h1>
+<h1>Edit Cat</h1>
 
-<form action="<%= cats_url %>" method="post">
+<form action="<%= cat_url(@cat) %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+
     <label for-"cat_name">Name</label>
     <input type="text" name="cat[name]" value="<%=@cat.name%>">
     <br><br>
 
     <label for-"cat_sex">Sex</label><br>
     <input type="radio" name="cat[sex]" id="cat_sex_female"
-      value="M" <%= (@cat.sex == "F") ? "checked" : "" %>>
+      value="F" <%= (@cat.sex == "F") ? "checked" : "" %>>
     <label for-"cat_sex_female">Female</label><br>
     <input type="radio" name="cat[sex]" id="cat_sex_male"
-      value="F" <%= (@cat.sex == "M") ? "checked" : "" %>>
+      value="M" <%= (@cat.sex == "M") ? "checked" : "" %>>
     <label for-"cat_sex_male">Male</label><br><br>
 
     <label for-"cat_color">Color</label>
@@ -36,5 +38,5 @@
         <%= @cat.description %></textarea>
     <br><br>
 
-    <button>Create Cat</button>
+    <button>Update Cat</button>
 </form>
