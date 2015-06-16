@@ -1,3 +1,3 @@
 NinetyNinecats::Application.routes.draw do
-  resources :cats, only: [:index, :show]
+  resources :cats, only: [:index, :show, :new, :create]
 end
