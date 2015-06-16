@@ -34,10 +34,22 @@ class CatsController < ApplicationController
   def update
     @cat = Cat.find(params[:id])
 
-    if @cat.update(cat_params)
+    if @cat.persisted?
       redirect_to cat_url(@cat)
     else
       render :edit
+    end
+
+  end
+
+  def destroy
+    @cat = Cat.find(params[:id])
+
+    if @cat.persisted?
+      @cat.destroy
+      redirect_to cats_url
+    else
+      raise "No such cat exists"
     end
 
   end

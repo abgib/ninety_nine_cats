@@ -3,5 +3,12 @@
 <ul>
   <% @cats.each do |cat| %>
     <li><a href="<%= cat_url(cat) %>"><%= cat.name %></a></li>
+
+    <form action="<%= cat_url(cat) %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+
+        <button>Delete Cat</button>
+    </form>
+
   <% end %>
 </ul>

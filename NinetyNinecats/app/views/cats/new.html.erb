@@ -1,40 +1,7 @@
 <h1>Register Cat</h1>
 
 <form action="<%= cats_url %>" method="post">
-    <label for-"cat_name">Name</label>
-    <input type="text" name="cat[name]" value="<%=@cat.name%>">
-    <br><br>
-
-    <label for-"cat_sex">Sex</label><br>
-    <input type="radio" name="cat[sex]" id="cat_sex_female"
-      value="M" <%= (@cat.sex == "F") ? "checked" : "" %>>
-    <label for-"cat_sex_female">Female</label><br>
-    <input type="radio" name="cat[sex]" id="cat_sex_male"
-      value="F" <%= (@cat.sex == "M") ? "checked" : "" %>>
-    <label for-"cat_sex_male">Male</label><br><br>
-
-    <label for-"cat_color">Color</label>
-    <select name="cat[color]" id="cat_color">
-      <option value=""></option>
-      <option value="brown"
-        <%= (@cat.color == "brown") ? "selected" : "" %>>Brown</option>
-      <option value="black"
-        <%= (@cat.color == "black") ? "selected" : "" %>>Black</option>
-      <option value="white"
-        <%= (@cat.color == "white") ? "selected" : "" %>>White</option>
-    </select><br><br>
-
-    <label for-"cat_birth_date">Birthday</label>
-    <time>
-      <input type="date" name="cat[birth_date]"
-        value="<%=@cat.birth_date%>">
-    </time><br><br>
-
-    <label for-"cat_description">Description</label><br>
-
-      <textarea name="cat[description]" cols="30" rows="10">
-        <%= @cat.description %></textarea>
-    <br><br>
+    <%= render "cats/form" %>
 
     <button>Create Cat</button>
 </form>
