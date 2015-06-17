@@ -5,8 +5,14 @@
 </head>
 <body>
   <% if !current_user.nil? %>
+  <%= flash[:errors] %><br>
     <h1><%= current_user.user_name %></h1>
+
     <form action="<%= session_url %>" method="post">
+      <input
+        type="hidden"
+        name="authenticity_token"
+        value="<%= form_authenticity_token %>">
       <input type="hidden" name="_method" value="delete">
       <button>Log Out!!!</button>
     </form>

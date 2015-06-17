@@ -11,6 +11,12 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :cats,
+    class_name: "Cat",
+    foreign_key: :user_id,
+    primary_key: :id
+
+
   validates :user_name, :password_digest, :session_token, presence: true
   validates :user_name, :session_token, uniqueness: true
 

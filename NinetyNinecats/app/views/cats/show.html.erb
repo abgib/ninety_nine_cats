@@ -3,6 +3,10 @@
 <table>
   <th>Cattributes</th>
   <tr>
+    <td>Owner</td>
+    <td><%= @cat.owner.user_name %></td>
+  </tr>
+  <tr>
     <td>Color</td>
     <td><%= @cat.color %></td>
   </tr>
@@ -18,3 +22,46 @@
 
 <h3>Description</h3>
 <p><%= @cat.description %></p>
+<br><br>
+
+<form action="<%= edit_cat_rental_request_url(9) %>" method="post">
+
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+
+    <input type="hidden" name="_method" value="patch">
+
+  <table>
+    <th>Rental Requests</th>
+    <tr>
+      <td>Start Date</td>
+      <td>End Date</td>
+      <td>Status</td>
+      <td>Action</td>
+    </tr>
+    <% @cat.rental_requests.each do |request| %>
+      <tr>
+        <td><%= request.start_date %></td>
+        <td><%= request.end_date %></td>
+        <td><%= request.status %></td>
+        <td>
+          <select name="request[status]" id="cat_rental_request_status">
+            <option value=""></option>
+            <option value="Pending"
+              <%= (request.status == "Pending") ? "selected" : "" %>>Pending</option>
+            <option value="Approved"
+              <%= (request.status == "Approved") ? "selected" : "" %>>Approved</option>
+            <option value="Denied"
+              <%= (request.status == "Denied") ? "selected" : "" %>>Denied</option>
+          </select><br><br>
+
+          </td>
+      </tr>
+    <% end %>
+
+  </table>
+
+  <button>Update</button>
+</form>

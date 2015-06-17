@@ -6,6 +6,10 @@
 
     <form action="<%= cat_url(cat) %>" method="post">
         <input type="hidden" name="_method" value="delete">
+        <input
+          type="hidden"
+          name="authenticity_token"
+          value="<%= form_authenticity_token %>">
 
         <button>Delete Cat</button>
     </form>

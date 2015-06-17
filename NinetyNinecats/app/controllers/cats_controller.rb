@@ -1,13 +1,11 @@
 class CatsController < ApplicationController
   def index
     @cats = Cat.all
-
     render :index
   end
 
   def show
     @cat = Cat.find(params[:id])
-
     render :show
   end
 
@@ -18,6 +16,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    @cat.user_id = current_user.id
 
     if @cat.save
       redirect_to cat_url(@cat)
@@ -28,7 +27,12 @@ class CatsController < ApplicationController
 
   def edit
     @cat = Cat.find(params[:id])
-    render :edit
+    if owns_cat?
+      render :edit
+    else
+      flash[:errors] = "You don't own #{@cat.name}!"
+      redirect_to cats_url
+    end
   end
 
   def update
@@ -51,11 +55,14 @@ class CatsController < ApplicationController
     else
       raise "No such cat exists"
     end
-
   end
 
 
   private
+  def owns_cat?
+    current_user.id == @cat.user_id
+  end
+
   def cat_params
     params.require(:cat).permit(:name, :birth_date,
       :color, :sex, :description)
