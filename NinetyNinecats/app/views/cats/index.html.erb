@@ -1,5 +1,14 @@
 <h1>All Cats</h1>
 
+<form action="<%= new_cat_url %>" method="get">
+    <input
+      type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
+
+    <button>Create Cat</button>
+</form>
+
 <ul>
   <% @cats.each do |cat| %>
     <li><a href="<%= cat_url(cat) %>"><%= cat.name %></a></li>

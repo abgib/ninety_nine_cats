@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.reset_session_token!
 
     if @user.save
       redirect_to cats_url

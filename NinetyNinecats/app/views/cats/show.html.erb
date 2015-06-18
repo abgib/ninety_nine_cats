@@ -24,14 +24,16 @@
 <p><%= @cat.description %></p>
 <br><br>
 
-<form action="<%= edit_cat_rental_request_url(9) %>" method="post">
 
-  <input
-    type="hidden"
-    name="authenticity_token"
-    value="<%= form_authenticity_token %>">
+<form action="<%= new_cat_rental_request_url %>" method="get">
+    <input
+      type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
 
-    <input type="hidden" name="_method" value="patch">
+    <button>Request Cat Rental</button>
+</form>
+<br><br>
 
   <table>
     <th>Rental Requests</th>
@@ -40,28 +42,50 @@
       <td>End Date</td>
       <td>Status</td>
       <td>Action</td>
+      <td>Update</td>
     </tr>
     <% @cat.rental_requests.each do |request| %>
       <tr>
         <td><%= request.start_date %></td>
         <td><%= request.end_date %></td>
         <td><%= request.status %></td>
-        <td>
-          <select name="request[status]" id="cat_rental_request_status">
-            <option value=""></option>
-            <option value="Pending"
-              <%= (request.status == "Pending") ? "selected" : "" %>>Pending</option>
-            <option value="Approved"
-              <%= (request.status == "Approved") ? "selected" : "" %>>Approved</option>
-            <option value="Denied"
-              <%= (request.status == "Denied") ? "selected" : "" %>>Denied</option>
-          </select><br><br>
+        <form action="<%= cat_rental_request_url %>" method="post">
+            <input
+              type="hidden"
+              name="authenticity_token"
+              value="<%= form_authenticity_token %>">
+
+              <input
+                type="hidden"
+                name="request_id"
+                value="<%= request.id %>">
+
+                <input
+                  type="hidden"
+                  name="requester_id"
+                  value="<%= current_user.id %>">
+
+                  <input
+                    type="hidden"
+                    name="cat_id"
+                    value="<%= request.cat_id %>">
+
+          <input type="hidden" name="_method" value="patch">
+          <td>
+            <select name="request[status]" id="cat_rental_request_status">
+              <option value=""></option>
+              <option value="Pending"
+                <%= (request.status == "Pending") ? "selected" : "" %>>Pending</option>
+              <option value="Approved"
+                <%= (request.status == "Approved") ? "selected" : "" %>>Approved</option>
+              <option value="Denied"
+                <%= (request.status == "Denied") ? "selected" : "" %>>Denied</option>
+            </select><br><br>
 
           </td>
+          <td><button>Update</button></td>
+        </form>
       </tr>
     <% end %>
 
   </table>
-
-  <button>Update</button>
-</form>

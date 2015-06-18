@@ -20,9 +20,9 @@ class User < ActiveRecord::Base
   validates :user_name, :password_digest, :session_token, presence: true
   validates :user_name, :session_token, uniqueness: true
 
-  before_save do
-    redirect_to cats_url if !current_user
-  end
+  # before_save do
+  #   redirect_to cats_url if !current_user.nil?
+  # end
 
   def reset_session_token!
     self.session_token = SecureRandom.urlsafe_base64(16)
